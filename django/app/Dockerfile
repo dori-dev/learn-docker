@@ -6,6 +6,8 @@ ENV DJANGO_SUPERUSER_PASSWORD admin
 
 RUN mkdir /app
 WORKDIR /app
+RUN apk update
+RUN apk add --no-cache build-base
 RUN pip install --upgrade pip
 ADD ./requirements.txt /app
 RUN pip install -r requirements.txt
