@@ -1,0 +1,36 @@
+version: '3.7'
+
+services:
+  wordpress:
+    image: wordpress
+    restart: always
+    ports:
+      - 80:80
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: myuser
+      WORDPRESS_DB_PASSWORD: 1234
+      WORDPRESS_DB_NAME: sitedb
+    volumes:
+      - type: bind
+        source: ./volumes/data
+        target: /var/www/html
+    depends_on:
+      - db
+
+  db:
+    image: mariadb
+    restart: always
+    environment:
+      MYSQL_DATABASE: sitedb
+      MYSQL_USER: myuser
+      MYSQL_PASSWORD: 1234
+      MYSQL_RANDOM_ROOT_PASSWORD: '1'
+    volumes:
+      - type: bind
+        source: ./volumes/db
+        target: /var/lib/mysql
+
+volumes:
+  wordpress:
+  db:
