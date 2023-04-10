@@ -1,6 +1,6 @@
 # Learn Docker
 
-Examples of how to use Docker
+Examples of how to use Docker with Django, Flask, NodeJs.
 
 #
 
