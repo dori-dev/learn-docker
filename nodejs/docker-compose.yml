@@ -1,0 +1,27 @@
+version: '3.7'
+
+services:
+  app:
+    build: ./app
+    container_name: app
+    restart: always
+    environment:
+      mongo_uri: 'mongodb://root:1234@mongo/mernblog?authSource=admin&retryWrites=true'
+    ports:
+      - 80:3030
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo
+    container_name: mongodb
+    restart: always
+    env_file: .env
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+    expose:
+      - 27017
+    volumes:
+      - type: bind
+        source: ./volumes/db
+        target: /data/db
